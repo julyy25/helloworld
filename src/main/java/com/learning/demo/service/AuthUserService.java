@@ -25,10 +25,15 @@ public class AuthUserService {
 	
 	
 	public String register(AuthUserModal authUserModal) {
-		var encoded = Base64.getEncoder().encodeToString(authUserModal.getPassword().getBytes());
-		authUserModal.setPassword(encoded);
-		authUserRepository.save(authUserModal);
-		return "Register success";
+		try {
+			var encoded = Base64.getEncoder().encodeToString(authUserModal.getPassword().getBytes());
+			authUserModal.setPassword(encoded);
+			authUserRepository.save(authUserModal);
+			return "success";	
+		} catch(Exception e) {
+			return "failure";
+		}
+		
 	}
 	
 	
